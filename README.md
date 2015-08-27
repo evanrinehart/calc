@@ -64,3 +64,13 @@ s1 ++ " " ++ len(s2)
 <ctrl+D>
 calc: line 3: right operand of ++ not a string
 ```
+
+## Compiler
+
+Output C source code.
+
+```
+./calc -c prox.x | gcc -x c -
+./a.out
+fruit cake
+```

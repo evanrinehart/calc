@@ -23,8 +23,6 @@ data Expr =
 instance Show Expr where
   show = showExpr
 
-data LExpr = LExpr Int Expr deriving (Show)
-
 showExpr :: Expr -> String
 showExpr e0 = case e0 of
   EZ _ n -> show n
