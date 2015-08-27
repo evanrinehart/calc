@@ -12,7 +12,6 @@ main = do
   args <- getArgs
   e0 <- case args of
     [] -> do
-      putStrLn "reading from stdin"
       src <- getContents
       return (parse "stdin" src)
     (path:_) -> parseFile path
