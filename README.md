@@ -20,6 +20,7 @@ E = integer
   | E * E
   | E ++ E
   | len(E)
+  | decimal(E)
   | (E)
 
 parse : Text -> E || Error

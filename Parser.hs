@@ -34,6 +34,7 @@ term = choice
   ,numlit
   ,strlit
   ,len
+  ,decimal
   ,letbinder
   ,variable
   ]
@@ -48,6 +49,17 @@ len = try $ do
   char ')'
   spaces
   return (ELen l e)
+
+decimal :: Parser Expr
+decimal = try $ do
+  l <- getL
+  string "decimal("
+  spaces
+  e <- expr
+  spaces
+  char ')'
+  spaces
+  return (EDec l e)
 
 letbinder :: Parser Expr
 letbinder = try $ do
@@ -76,7 +88,7 @@ mathEx :: Parser Expr
 mathEx =
   let factor1 = chainl1 term timesOp in
   let factor2 = chainl1 factor1 (plusOp <|> minusOp) in
-  chainl1 factor2 catOp 
+  chainl1 factor2 catOp
 
 catOp = do
   l <- getL

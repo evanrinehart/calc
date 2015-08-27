@@ -22,6 +22,9 @@ evalC c e0 = case e0 of
   ELen _ e -> case evalC c e of
     ES _ s -> (EZ undefined . fromIntegral . T.length) s
     _ -> error "operand of len is not a string"
+  EDec _ e -> case evalC c e of
+    EZ _ z -> (ES undefined . T.pack . show) z
+    _ -> error "operand of decimal is not an integer"
   EL _ v e1 e2 -> evalC (M.insert v e1 c) e2
   EV _ v -> case M.lookup v c of
     Just e -> e

@@ -16,7 +16,8 @@ data Expr =
   EMinus Int Expr Expr |
   ETimes Int Expr Expr |
   ECat Int Expr Expr |
-  ELen Int Expr
+  ELen Int Expr |
+  EDec Int Expr
     deriving (Eq)
 
 instance Show Expr where
@@ -34,5 +35,6 @@ showExpr e0 = case e0 of
   ETimes _ e1 e2 -> showExpr e1 ++ " * " ++ showExpr e2
   ECat _ e1 e2 -> showExpr e1 ++ " ++ " ++ showExpr e2
   ELen _ e -> "len("++showExpr e++")"
+  EDec _ e -> "decimal("++showExpr e++")"
   EL _ v e1 e2 -> "let "++v++" = "++showExpr e1++" in\n"++showExpr e2
 
