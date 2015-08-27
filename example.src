@@ -1,0 +1,5 @@
+let x = 3 in
+let y = 9 in
+let s1 = "fruit" in
+let s2 = "cake" in
+(x - y) * len(s1 ++ " " ++ s2)
