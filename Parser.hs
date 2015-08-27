@@ -115,9 +115,10 @@ parens = do
 numlit :: Parser Expr
 numlit = do
   l <- getL
+  neg <- option 1 (char '-' >> return (-1))
   ds <- many1 digit
   spaces
-  (return . EZ l . read) ds
+  (return . EZ l . (*neg) . read) ds
 
 strlit :: Parser Expr
 strlit = do
