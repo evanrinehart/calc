@@ -28,7 +28,7 @@ compile e = code where
   output = case infer e of
     TZ -> "  printf(\"%d\\n\", (int)final);\n"
     TS -> "  printf(\"%s\\n\", (char*)final);\n"
-  (_, result) = (runWriter . flip evalStateT names) (outputCode M.empty e "final")
+  result = (execWriter . flip evalStateT names) (outputCode M.empty e "final")
 
 newReg :: Compiler String
 newReg = do
@@ -77,35 +77,3 @@ outputMath c op e1 e2 ret = do
   outputCode c e2 r2
   tell ("  " ++ ret ++ " = (void*)((int)" ++ r1 ++ " " ++ op ++ " (int)" ++ r2 ++ ");\n")
   
-  
-
-{-
-  allocate two new registers
-  output the code to compute e1 and leave the result in reg1
-  output the code to computer e2 and leave the result in reg2
-  compute the answer and leave the result in your return reg
-  EPlus Int Expr Expr
-  EMinus Int Expr Expr |
-  ETimes Int Expr Expr |
-  ECat Int Expr Expr |
-
-  allocate one new register
-  output the code to compute e and leave the result in that reg
-  compute the answer and leave it in your assigned return reg
-  ELen Int Expr |
-  EDec Int Expr |
-
-  allocate one new register using the name of the variable
-  output the code to compute e1 and leave the result in that reg
-  output the code to compute e2 and leave the result in your
-  assigned return reg
-  EL Int Name Expr Expr |
-
-  read from the reg using the variables name and leave the result
-  in your assigned return reg
-  EV Int Name |
-
-  write the value to your assigned return reg
-  EZ Int Integer |
-  ES Int Text |
--}
