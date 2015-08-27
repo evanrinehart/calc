@@ -18,6 +18,7 @@ main = do
       return (parse "stdin" src)
     ("-c":path:_) -> do
       e <- parseFile path
+      _ <- evaluate (infer e)
       let code = compile e
       putStrLn code
       exitSuccess
